@@ -50,6 +50,13 @@ class HomeWork2:
         #     if i%3==2:
         #         root_node.left = curr_node
         # return root_node
+
+        #edge case empty input
+        if not input:
+            return None
+        
+        
+        
         pass
 
 
@@ -127,9 +134,32 @@ class HomeWork2:
         # while curr_node.left.left:
         #     curr_node = curr_node.left
 
-            
+        #similarly it travers like left,right,root
+        #edge cases will be empty tree and one node
 
+        if head is None:
+            return None
+        if head.left is None and head.right is None:
+            return head.val
+        stack = Stack()
+        result = []
+        last_visited = None
+        curr_node = head
+
+        while stack.stack or curr_node:
+            if curr_node:
+                stack.add(curr_node)
+                curr_node = curr_node.left #adding all the left nodes first because we need to print first left,right,node 
+            else:
+                peek_node = stack.stack[-1]
+                if peek_node.right and last_visited != peek_node.right:
+                    curr_node = peek_node.right
+                else:
+                    result.append(peek_node.val)
+                    last_visited = stack.pop()
+        
         return result
+
         pass
 
 
