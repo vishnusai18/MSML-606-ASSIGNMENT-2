@@ -33,23 +33,23 @@ class HomeWork2:
     def constructBinaryTree(self, input) -> TreeNode:
         #basically postfix - left,right,root
         #my logic i'm thinking i will reverse the input list & then make a stack and into it.
-        stack = []
-        n = len(input)
-        for i in range(n-1,-1,-1):
-            stack.append(input[i])
-        print(input)
-        print(stack)
-        # print(reverse_input)
-        root_node = TreeNode(stack[0])
-        for i in range(1,len(stack)):
-            curr_node = TreeNode()
-            if i%3==0:
-                root_node = curr_node
-            if i%3==1:
-                root_node.right = curr_node
-            if i%3==2:
-                root_node.left = curr_node
-        return root_node
+        # stack = []
+        # n = len(input)
+        # for i in range(n-1,-1,-1):
+        #     stack.append(input[i])
+        # print(input)
+        # print(stack)
+        # # print(reverse_input)
+        # root_node = TreeNode(stack[0])
+        # for i in range(1,len(stack)):
+        #     curr_node = TreeNode()
+        #     if i%3==0:
+        #         root_node = curr_node
+        #     if i%3==1:
+        #         root_node.right = curr_node
+        #     if i%3==2:
+        #         root_node.left = curr_node
+        # return root_node
         pass
 
 
@@ -60,6 +60,26 @@ class HomeWork2:
     # you can see the examples in p2_traversals.csv
 
     def prefixNotationPrint(self, head: TreeNode) -> list:
+        # so basically prefix - root,left,right
+        # edge cases will be like empty tree or tree with one node
+        if not head:
+            return None
+        if head.left is None and head.right is None:
+            return head.val
+        stack = Stack() #intiating stack beacuse it will maintain the traversal 
+        stack.add(head) # adding root, since it is prefix, first it will print root
+        result = []
+        while stack.stack:
+            curr_node = stack.pop()
+            result.append(curr_node.val)
+
+            if curr_node.right:                #sicne it is stack we are appedning right before left because we wanna print left which pops before right value of that node
+                stack.add(curr_node.right)
+            if curr_node.left:
+                stack.add(curr_node.left)
+        return result
+
+
         pass
 
     # Problem 2.2: Use in-order traversal (left, root, right) for infix notation with appropriate parentheses.
@@ -81,15 +101,12 @@ class HomeWork2:
     # you can see the examples in p2_traversals.csv
 
     def postfixNotationPrint(self, head: TreeNode) -> list:
-        curr_node = self.head
-        stack = []
-        result = []
-        while curr_node:
-            stack.append(curr_node.val)
-            if curr_node.right:
-                stack.append(curr_node.right.val)
-            if curr_node.left:
-                stack.append(curr_node.left.val)
+        # curr_node = head
+        # stack = []
+        # result = []
+        # while curr_node.left.left:
+        #     curr_node = curr_node.left
+
             
 
         return result
@@ -106,8 +123,16 @@ class Stack:
     # Use your own stack implementation to solve problem 3
 
     def __init__(self):
+        #so i'm using list to create and then poping using list inbuilt methods
+        self.stack = []
         # TODO: initialize the stack
         pass
+    def pop(self,):
+        return self.stack.pop(-1)
+    
+    def add(self,):
+        return self.stack.append()
+    
 
     # Problem 3: Write code to evaluate a postfix expression using stack and return the integer value
     # Use stack which you implemented above for this problem
