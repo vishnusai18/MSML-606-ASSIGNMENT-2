@@ -92,6 +92,26 @@ class HomeWork2:
     # treat parentheses as individual elements in the returned list (see output)
 
     def infixNotationPrint(self, head: TreeNode) -> list:
+        #infix = left,root,right
+        # edgae cases are empty, and 1 node 
+        if head is None:
+            return None
+        if head.left is None and head.right is None:
+            return head.val
+        
+        result = []
+        stack = Stack()
+        current_node = head
+        while stack.stack or current_node:
+            while current_node:
+                stack.add(current_node)
+                current_node = current_node.left
+            current_node = stack.pop()
+            result.append(current_node.val)
+            current_node = current_node.right
+        
+        return result
+
         pass
 
 
