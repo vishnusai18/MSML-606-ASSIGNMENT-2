@@ -54,8 +54,16 @@ class HomeWork2:
         #edge case empty input
         if not input:
             return None
+        stack = Stack()
+        for value in input:
+            if value in "+-*/":
+                right = stack.pop()
+                left = stack.pop()
+                stack.add(TreeNode(value,left,right))
+            else:
+                stack.add(TreeNode(value))
         
-        
+        return stack.stack[0]
         
         pass
 
@@ -102,20 +110,29 @@ class HomeWork2:
         #infix = left,root,right
         # edgae cases are empty, and 1 node 
         if head is None:
-            return None
+            return []
         if head.left is None and head.right is None:
-            return head.val
+            return ["(", str(head.val), ")"]
         
         result = []
         stack = Stack()
-        current_node = head
-        while stack.stack or current_node:
-            while current_node:
-                stack.add(current_node)
-                current_node = current_node.left
-            current_node = stack.pop()
-            result.append(current_node.val)
-            current_node = current_node.right
+        stack.add((head,0))
+        while stack.stack:
+            node,state = stack.pop()
+            if_leaf = (node.left is None and node.right is None)
+            if if_leaf:
+                result.append(str(node.val))
+                continue
+            if state == 0:
+                result.append("(")
+                stack.add((node,1))
+                stack.add((node.left,0))
+            elif state==1:
+                result.append(node.val)
+                stack.add((node,2))
+                stack.add((node.right,0))
+            else:
+                result.append(")")
         
         return result
 
@@ -180,8 +197,8 @@ class Stack:
     def pop(self,):
         return self.stack.pop(-1)
     
-    def add(self,):
-        return self.stack.append()
+    def add(self,val):
+        return self.stack.append(val)
     
 
     # Problem 3: Write code to evaluate a postfix expression using stack and return the integer value
@@ -233,6 +250,7 @@ if __name__ == "__main__":
         postfix = postfix_input.split(",")
 
         root = homework2.constructBinaryTree(postfix)
+        
 
         assert homework2.prefixNotationPrint(root) == exp_pre.split(","), f"P2-{i} prefix failed"
         assert homework2.infixNotationPrint(root) == exp_in.split(","), f"P2-{i} infix failed"
