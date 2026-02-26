@@ -6,6 +6,13 @@ import csv
 # problem1_construct_tree = pd.read_csv('/Users/vishnusaivardhanreddybasireddygari/Downloads/msml606_hw2_spring26/p1_construct_tree.csv')
 # problem1_construct_tree.head()
 
+# ---------- AI Usgae or external tools -----------------------------------------
+#Problem 1: Did not used AI or any other external tools in this problem
+#Problem 2.1: Did not used AI any other external tools in this problem
+#Problem 2.2: Used AI to understand the logic because i made code but i was getting error, used AI to debug and how to handle paranthesis and made code by myself.
+#problem 2.3: Did not used AI any other external tools in this problem
+#Problem 3: Used AI to understand the how to to do evaluate because i did not know before that operations cannot be at the leaf node.
+
 class TreeNode:
     def __init__(self, val=0, left=None, right=None):
         self.val = val
@@ -50,6 +57,7 @@ class HomeWork2:
         #     if i%3==2:
         #         root_node.left = curr_node
         # return root_node
+
 
         #edge case empty input
         if not input:
@@ -160,7 +168,7 @@ class HomeWork2:
             return head.val
         stack = Stack()
         result = []
-        last_visited = None
+        last_visited = None 
         curr_node = head
 
         while stack.stack or curr_node:
