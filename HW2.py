@@ -65,7 +65,7 @@ class HomeWork2:
         
         return stack.stack[0]
         
-        pass
+        # pass
 
 
 
@@ -95,7 +95,7 @@ class HomeWork2:
         return result
 
 
-        pass
+        # pass
 
     # Problem 2.2: Use in-order traversal (left, root, right) for infix notation with appropriate parentheses.
     # return an array of elements of an infix expression
@@ -136,7 +136,7 @@ class HomeWork2:
         
         return result
 
-        pass
+        # pass
 
 
     # Problem 2.3: Use post-order traversal (left, right, root) to generate postfix notation.
@@ -177,7 +177,7 @@ class HomeWork2:
         
         return result
 
-        pass
+        # pass
 
 
 class Stack:
@@ -214,9 +214,41 @@ class Stack:
 
     # DO NOT USE EVAL function for evaluating the expression
 
-    def evaluatePostfix(exp: str) -> int:
+    def evaluatePostfix(self,exp: str) -> int:
+
+        if exp is None:
+            return 0
+        values = exp.split()
+        operaions = "+-*/"
+        for value in values:
+            if value in operaions and len(value) ==1:
+
+                if len(self.stack) < 2:
+                    raise ValueError("Malformed postfix: insufficient operands before operator {}".format(value))
+
+                right = int(self.pop()) #here order matters we are popping right first and then left
+                left = int(self.pop())
+
+                if value== "+":
+                    self.add(left + right)
+                elif value=="-":
+                    self.add(left - right)
+                elif value=="*":
+                    self.add(left * right)
+                elif value=="/":
+                    if right==0: # here if the denominator is Zero in that case we will return without doing division
+                        raise ZeroDivisionError('division by Zero')
+                    self.add((left/right))
+            else:
+                try:
+                    value = int(value) # If it's not an int and not a supported operator, it's invalid
+                except ValueError:
+                    if value in operaions:
+                        raise ValueError('invalid Operation {}'.format(value))
+                self.add(value)
+        return self.pop()
         # TODO: implement this using your Stack class
-        pass
+        # pass
 
 
 # Main Function. Do not edit the code below
